@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn nhạc nền - TMH 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #f093fb;
+            --text-primary: #2d3748;
+            --text-secondary: #4a5568;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --chill-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+            --border-radius: 20px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--chill-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        .shape:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            right: 30%;
+            animation-delay: 1s;
+        }
+
+        .shape:nth-child(5) {
+            width: 140px;
+            height: 140px;
+            bottom: 30%;
+            right: 40%;
+            animation-delay: 3s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(20px) rotate(240deg);
+            }
+        }
+
+        .entry-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: var(--chill-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .entry-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .entry-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .music-section {
+            margin-bottom: 40px;
+        }
+
+        .music-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .music-options {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .music-option {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid transparent;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .music-option:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .music-option.selected {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .music-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .music-info h4 {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .music-info p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .spotify-player {
+            margin: 25px 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px;
+            backdrop-filter: blur(10px);
+        }
+
+        .spotify-player iframe {
+            border-radius: 12px;
+        }
+
+        .spotify-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .spotify-link:hover {
+            color: var(--secondary-color);
+            transform: translateY(-1px);
+        }
+
+        .enter-btn {
+            background: var(--chill-gradient);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .enter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 25px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .skip-music {
+            margin-top: 20px;
+        }
+
+        .skip-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .skip-link:hover {
+            color: var(--primary-color);
+        }
+
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loading-spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(102, 126, 234, 0.3);
+            border-top: 3px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.6s ease-out;
+        }
+
+        @media (max-width: 768px) {
+            .entry-container {
+                padding: 40px 30px;
+                margin: 20px;
+            }
+
+            .entry-title {
+                font-size: 1.8rem;
+            }
+
+            .spotify-player {
+                margin: 20px -10px;
+            }
+
+            .music-option {
+                padding: 12px 15px;
+            }
+
+            .music-icon {
+                font-size: 1.3rem;
+                margin-right: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="entry-container">
+        <div class="logo">
+            <i class="fas fa-music"></i>
+        </div>
+        <h1 class="entry-title">Chào mừng đến với hành trình</h1>
+        <p class="entry-subtitle">Hãy chọn nhạc nền để tạo không khí chill cho trải nghiệm của bạn</p>
+        
+        <div class="music-section">
+            <h3 class="music-title">
+                <i class="fab fa-spotify"></i>
+                Chọn nhạc nền
+            </h3>
+            
+            <a href="https://open.spotify.com/playlist/44rklWOXvS8alpCwqZDvhS?si=7LQ5mGPVTp-Bgxs3do28Sg" target="_blank" class="spotify-link">
+                <i class="fab fa-spotify"></i>
+                Nghe playlist trên Spotify
+            </a>
+
+            <div class="spotify-player">
+                <iframe style="border-radius:12px" 
+                    src="https://open.spotify.com/embed/playlist/44rklWOXvS8alpCwqZDvhS?utm_source=generator&theme=0" 
+                    width="100%" height="352" frameborder="0" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+                </iframe>
+            </div>
+
+            <div class="music-options">
+                <div class="music-option selected" data-music="spotify">
+                    <div class="music-icon">🎵</div>
+                    <div class="music-info">
+                        <h4>Nghe nhạc từ Spotify</h4>
+                        <p>Playlist chill được tuyển chọn đặc biệt cho hành trình</p>
+                    </div>
+                </div>
+                
+                <div class="music-option" data-music="none">
+                    <div class="music-icon">🔇</div>
+                    <div class="music-info">
+                        <h4>Không nhạc</h4>
+                        <p>Trải nghiệm trong yên lặng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="enter-btn" id="enterBtn">
+            <i class="fas fa-arrow-right"></i>
+            Bắt đầu hành trình
+        </button>
+
+        <div class="skip-music">
+            <a href="index.html" class="skip-link">Bỏ qua và vào trang chính</a>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Đang chuẩn bị trải nghiệm...</p>
+        </div>
+    </div>
+
+    <script>
+        const musicOptions = document.querySelectorAll('.music-option');
+        const enterBtn = document.getElementById('enterBtn');
+        const loading = document.getElementById('loading');
+        const entryContainer = document.querySelector('.entry-container');
+
+        let selectedMusic = 'spotify'; // Default to Spotify
+
+        musicOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove previous selection
+                musicOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selection to clicked option
+                option.classList.add('selected');
+                selectedMusic = option.dataset.music;
+            });
+        });
+
+        enterBtn.addEventListener('click', () => {
+            loading.style.display = 'block';
+            entryContainer.classList.add('fade-out');
+            
+            // Store music preference
+            localStorage.setItem('selectedMusic', selectedMusic);
+            
+            // Redirect after animation
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 800);
+        });
+
+        // Add entrance animation
+        setTimeout(() => {
+            entryContainer.style.opacity = '1';
+            entryContainer.style.transform = 'translateY(0)';
+        }, 300);
+
+        // Initial state
+        entryContainer.style.opacity = '0';
+        entryContainer.style.transform = 'translateY(30px)';
+        entryContainer.style.transition = 'all 0.8s ease-out';
+    </script>
+</body>
+</html>
